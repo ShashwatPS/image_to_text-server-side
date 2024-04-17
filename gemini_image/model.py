@@ -9,9 +9,12 @@ from IPython.display import Markdown
 from PIL import Image
 import requests
 from io import BytesIO
+from dotenv import load_dotenv
 
 import gc
 
+dotenv_path = '../.env'
+load_dotenv(dotenv_path)
 
 def to_markdown(text):
     text = text.replace("•", "  *")
