@@ -11,7 +11,5 @@ scipy
 scikit-learn
 pandas
 fastai
-jupyter
-jupyterlab
 nltk
 plotly
