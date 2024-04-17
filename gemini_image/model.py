@@ -1,3 +1,4 @@
+import PIL
 import google.generativeai as genai
 import pathlib
 import textwrap
@@ -32,14 +33,20 @@ genai.configure(api_key=os.environ["GOOGLE"])
 def generate_description(img_url):
     model = genai.GenerativeModel("gemini-pro-vision")
     response = requests.get(img_url)
-    img = Image.open(BytesIO(response.content))
 
-    # Check if the image is not JPEG
-    if img.format != "JPEG":
-        # Convert the image to JPEG
-        with BytesIO() as f:
-            img.save(f, format="JPEG")
-            img = Image.open(f)
+    try:
+        img = Image.open(BytesIO(response.content))
+
+        # Check if the image is not JPEG
+        if img.format != "JPEG":
+            # Convert the image to JPEG
+            with BytesIO() as f:
+                img.save(f, format="JPEG")
+                img = Image.open(f)
+    except PIL.UnidentifiedImageError:
+        # Handle the unidentified image error
+        return "Unable to identify the image file."
+
     response = model.generate_content(
         ["Just describe it don't add excess information", img], stream=True
     )
