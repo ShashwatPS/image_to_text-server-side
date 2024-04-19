@@ -6,10 +6,7 @@ python-dotenv
 ipython
 pillow
 numpy
-matplotlib
 scipy
 scikit-learn
 pandas
-fastai
 nltk
-plotly
